@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "nbb": "1.2.173",
+    "node-watch": "^0.7.4",
+    "recursive-readdir": "^2.2.3",
+    "shadow-cljs": "^2.28.12",
+    "tailwindcss": "^3.3.3"
+  },
+  "scripts": {
+    "tailwind:extract-classes": "nbb -m autogen.main",
+    "tailwind:watch": "nbb -m autogen.main -w"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
