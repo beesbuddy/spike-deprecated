@@ -36,7 +36,7 @@ Run `clj -M:dev:nrepl` or `make repl`.
 
 Note that, just like with [CIDER](#cider), this alias runs nREPL during development. To run nREPL in production (typically when the system starts), use the kit-nrepl library through the +nrepl profile as described in [the documentation](https://kit-clj.github.io/docs/profiles.html#profiles).
 
-# Develop in gitlab
+# Develop in gitpod
 
 Click the button below to start a new development environment:
 
