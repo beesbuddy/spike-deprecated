@@ -32,8 +32,8 @@
 (defn start-router! [message-handler]
   (stop-router!)
   (reset! router (sente/start-chsk-router!
-                   ch-chsk
-                   (event-msg-handler
-                     {:message   message-handler
-                      :state     state-handler
-                      :handshake handshake-handler}))))
+                  ch-chsk
+                  (event-msg-handler
+                   {:message   message-handler
+                    :state     state-handler
+                    :handshake handshake-handler}))))

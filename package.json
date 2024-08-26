@@ -7,6 +7,7 @@
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
+    "shadow:watch": "shadow-cljs watch app",
     "tailwind:extract-classes": "nbb -m autogen.main",
     "tailwind:watch": "nbb -m autogen.main -w"
   },

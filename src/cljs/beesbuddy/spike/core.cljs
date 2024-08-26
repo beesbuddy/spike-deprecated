@@ -1,19 +1,31 @@
 (ns beesbuddy.spike.core
-    (:require
-      [reagent.core :as r]
-      [reagent.dom :as d]))
-
-;; -------------------------
-;; Views
-
-(defn home-page []
-  [:div [:h2 "Welcome to Spike!"]])
+  (:require
+   [reagent.dom :as d]
+   [re-frame.core :refer [dispatch-sync]]
+   [beesbuddy.spike.router :as router]
+   [beesbuddy.spike.events]
+   [beesbuddy.spike.subs]
+   [beesbuddy.spike.views]))
 
 ;; -------------------------
 ;; Initialize app
-
+;; -------------------------
 (defn ^:dev/after-load mount-root []
-  (d/render [home-page] (.getElementById js/document "app")))
+  ;; Router config can be found within `./router.cljs`. Here we are just hooking
+  ;; up the router on start
+  (router/start!)
+
+  ;; Put an initial value into app-db.
+  ;; The event handler for `:initialise-db` can be found in `events.cljs`
+  ;; Using the sync version of dispatch means that value is in
+  ;; place before we go onto the next step.
+  (dispatch-sync [:initialise-db])
+
+  ;; Render the UI into the HTML's <div id="app" /> element
+  ;; The view function `conduit.views/conduit-app` is the
+  ;; root view for the entire UI.
+  (d/render [beesbuddy.spike.views/app]
+            (.getElementById js/document "app")))
 
 (defn ^:export ^:dev/once init! []
   (mount-root))

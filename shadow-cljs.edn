@@ -1,9 +1,15 @@
-{:nrepl {:port 7002}
+{:nrepl        {:port 7002}
  :source-paths ["src/cljs"]
  :dependencies [[binaryage/devtools "1.0.3"]
                 [nrepl "0.8.3"]
                 [cider/cider-nrepl "0.30.0"]
-                [cljs-ajax "0.8.4"] [reagent "1.1.0"] [com.taoensso/sente "1.17.0"]]
+                [cljs-ajax "0.8.4"]
+                [reagent "1.1.0"]
+                [re-frame "1.4.3"]
+                [bidi "2.1.6"]
+                [day8.re-frame/http-fx "0.2.4"]
+                [kibu/pushy "0.3.8"]
+                [com.taoensso/sente "1.17.0"]]
  :builds       {:app {:target     :browser
                       :output-dir "target/classes/cljsbuild/public/js"
                       :asset-path "/js"

@@ -14,6 +14,9 @@ modules/
 .idea/
 *.bak
 
+# VSCode
+.vscode/
+
 # clj-kondo
 .clj-kondo/.cache/
 .calva/output-window/
