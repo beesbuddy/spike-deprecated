@@ -25,7 +25,9 @@
            selmer/selmer                   {:mvn/version "1.12.50"}
            luminus/ring-ttl-session        {:mvn/version "0.3.3"}
            com.taoensso/sente              {:mvn/version "1.17.0"}
-           io.github.kit-clj/kit-hato      {:mvn/version "1.0.3"}}
+           io.github.kit-clj/kit-hato      {:mvn/version "1.0.3"}
+           clj-time/clj-time               {:mvn/version "0.15.2"}
+           buddy/buddy-auth                {:mvn/version "3.0.323"}}
  :aliases {:build {:deps       {io.github.clojure/tools.build {:mvn/version "0.9.6"}
                                 babashka/fs                   {:mvn/version "0.1.11"}
                                 babashka/process              {:mvn/version "0.3.11"}}

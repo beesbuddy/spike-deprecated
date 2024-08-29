@@ -39,7 +39,7 @@
                               (-> (beesbuddy.spike.config/system-config {:profile :test})
                                   (ig/prep)))))
 
-;; Can change this to test-prep! if want to run tests as the test profile in your repl
+;; Can change this to test-prep! if you want to run tests as the test profile in your repl
 ;; You can run tests in the dev profile, too, but there are some differences between
 ;; the two profiles.
 (dev-prep!)
@@ -47,7 +47,6 @@
 (repl/set-refresh-dirs "src/clj")
 
 (def refresh repl/refresh)
-
 
 
 (comment

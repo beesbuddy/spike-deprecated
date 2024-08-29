@@ -9,7 +9,7 @@
   (fn [request]
     (let [response (handler request)]
       (if (= 404 (:status response))
-        (http-response/moved-permanently "/")
+        (http-response/temporary-redirect "/")
         response))))
 
 (defn wrap-base
@@ -17,7 +17,7 @@
   (let [cookie-store (cookie/cookie-store {:key (.getBytes ^String cookie-secret)})]
     (fn [handler]
       (cond-> ((:middleware env/defaults) handler opts)
-        true (defaults/wrap-defaults
-              (assoc-in site-defaults-config [:session :store] cookie-store))
-        ;; redirect to home page if not found
-        true (wrap-redirect-to-home)))))
+              true (defaults/wrap-defaults
+                     (assoc-in site-defaults-config [:session :store] cookie-store))
+              ;; redirect to home page if not found
+              false (wrap-redirect-to-home)))))

@@ -11,7 +11,7 @@
  :handler/ring
  {:router               #ig/ref :router/core
   :api-path             "/api"
-  :cookie-secret        #or [#env COOKISECRET "UFBCEFUMSXTOHJDS"]
+  :cookie-secret        #or [#env COOKIESECRET "UFBCEFUMSXTOHJDS"]
   ;; from ring.middleware.defaults. anti-forgery `false` by default because services may not require it
   :site-defaults-config {:params    {:urlencoded true
                                      :multipart  true
@@ -35,9 +35,11 @@
                                      :default-charset        "utf-8"}}}
 
  :reitit.routes/api
- {:base-path   "/api"
-  :env         #ig/ref :system/env
-  :http/client #ig/ref :http.client/hato}
+ {:base-path                  "/api"
+  :env                        #ig/ref :system/env
+  :before-middleware/jwt-auth #ig/ref :before-middleware/auth
+  :controller/jwt-sign-in     #ig/ref :controller/sign-in
+  :http/client                #ig/ref :http.client/hato}
 
  :router/routes
  {:routes #ig/refset :reitit/routes}
@@ -45,11 +47,27 @@
  :router/core
  {:routes #ig/ref :router/routes
   :env    #ig/ref :system/env}
- :reitit.routes/pages {:base-path "",
-                       :env       #ig/ref :system/env}
- :sente/connection    {}
- :sente/router        {:connection #ig/ref :sente/connection}
- :reitit.routes/ws    {:base-path  "/ws",
-                       :env        #ig/ref :system/env,
-                       :connection #ig/ref :sente/connection}
- :http.client/hato    {}}
+
+ :reitit.routes/pages
+ {:base-path "",
+  :env       #ig/ref :system/env}
+
+ :sente/connection
+ {}
+
+ :sente/router
+ {:connection #ig/ref :sente/connection}
+
+ :reitit.routes/ws
+ {:base-path  "/ws",
+  :env        #ig/ref :system/env,
+  :connection #ig/ref :sente/connection}
+
+ :http.client/hato
+ {}
+
+ :before-middleware/auth
+ {:token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}
+
+ :controller/sign-in
+ {:token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}}

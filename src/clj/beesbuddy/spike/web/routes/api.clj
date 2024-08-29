@@ -3,6 +3,7 @@
     [beesbuddy.spike.web.controllers.health :as health]
     [beesbuddy.spike.web.middleware.exception :as exception]
     [beesbuddy.spike.web.middleware.formats :as formats]
+    [buddy.auth :refer [authenticated?]]
     [integrant.core :as ig]
     [reitit.coercion.malli :as malli]
     [reitit.ring.coercion :as coercion]
@@ -13,7 +14,10 @@
 (def route-data
   {:coercion   malli/coercion
    :muuntaja   formats/instance
-   :swagger    {:id ::api}
+   :swagger    {:id                  ::api
+                :securityDefinitions {:jwtAuth {:type "apiKey"
+                                                :name "Authorization"
+                                                :in   "header"}}}
    :middleware [;; query-params & form-params
                 parameters/parameters-middleware
                 ;; content-negotiation
@@ -31,19 +35,40 @@
                 ;; exception handling
                 exception/wrap-exception]})
 
+(defn secured
+  [request]
+  (if-not (authenticated? request)
+    {:body {:message "Not authorized"} :status 401 :content-type "application/json"}
+    {:body {:message "Authorized"} :status 200 :content-type "application/json"}))
+
 ;; Routes
-(defn api-routes [_opts]
+(defn api-routes [{:keys [before-middleware/jwt-auth controller/jwt-sign-in]}]
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title "Spike API"}}
            :handler (swagger/create-swagger-handler)}}]
+   ["/sign-in"
+    {:post       {
+                  :summary "Sign in"
+                  :handler jwt-sign-in}
+     :parameters {
+                  :body {:username string?
+                         :password string?}}}]
    ["/health"
-    {:get health/healthcheck!}]])
+    {:get {
+           :summary "Health check"
+           :handler health/healthcheck!}}]
+   ["/v1" {:middleware [jwt-auth]}
+    ["/secured" {
+                 :get {:summary "Secured route"
+                       :handler secured
+                       :swagger {:security [{:jwtAuth []}]}}}]]])
+
 
 (derive :reitit.routes/api :reitit/routes)
 
 (defmethod ig/init-key :reitit.routes/api
   [_ {:keys [base-path]
-      :or   {base-path ""}
+      :or   {base-path "/api"}
       :as   opts}]
   (fn [] [base-path route-data (api-routes opts)]))
