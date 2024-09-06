@@ -1,15 +1,15 @@
 (ns beesbuddy.spike.web.routes.api
   (:require
-    [beesbuddy.spike.web.controllers.health :as health]
-    [beesbuddy.spike.web.middleware.exception :as exception]
-    [beesbuddy.spike.web.middleware.formats :as formats]
-    [buddy.auth :refer [authenticated?]]
-    [integrant.core :as ig]
-    [reitit.coercion.malli :as malli]
-    [reitit.ring.coercion :as coercion]
-    [reitit.ring.middleware.muuntaja :as muuntaja]
-    [reitit.ring.middleware.parameters :as parameters]
-    [reitit.swagger :as swagger]))
+   [beesbuddy.spike.web.controllers.health :as health]
+   [beesbuddy.spike.web.middleware.exception :as exception]
+   [beesbuddy.spike.web.middleware.formats :as formats]
+   [buddy.auth :refer [authenticated?]]
+   [integrant.core :as ig]
+   [reitit.coercion.malli :as malli]
+   [reitit.ring.coercion :as coercion]
+   [reitit.ring.middleware.muuntaja :as muuntaja]
+   [reitit.ring.middleware.parameters :as parameters]
+   [reitit.swagger :as swagger]))
 
 (def route-data
   {:coercion   malli/coercion
@@ -48,22 +48,17 @@
            :swagger {:info {:title "Spike API"}}
            :handler (swagger/create-swagger-handler)}}]
    ["/sign-in"
-    {:post       {
-                  :summary "Sign in"
+    {:post       {:summary "Sign in"
                   :handler jwt-sign-in}
-     :parameters {
-                  :body {:username string?
+     :parameters {:body {:username string?
                          :password string?}}}]
    ["/health"
-    {:get {
-           :summary "Health check"
+    {:get {:summary "Health check"
            :handler health/healthcheck!}}]
    ["/v1" {:middleware [jwt-auth]}
-    ["/secured" {
-                 :get {:summary "Secured route"
+    ["/secured" {:get {:summary "Secured route"
                        :handler secured
                        :swagger {:security [{:jwtAuth []}]}}}]]])
-
 
 (derive :reitit.routes/api :reitit/routes)
 

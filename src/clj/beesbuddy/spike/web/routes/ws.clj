@@ -4,7 +4,7 @@
             [ring.middleware.params]
             [taoensso.sente :as sente]
             [taoensso.sente.server-adapters.undertow :refer [get-sch-adapter]]))
-   
+
 (defn client-id [ring-req]
   (get-in ring-req [:params :client-id]))
 
@@ -22,8 +22,8 @@
 (defmethod on-message :guestbook/broadcast
   [{:keys [id client-id ?data send-fn connected-uids] :as _message}]
   (let [response (str "Hello to everyone from the client " client-id)]
-   (doseq [uid (:any @connected-uids)]
-     (send-fn uid [id response]))))
+    (doseq [uid (:any @connected-uids)]
+      (send-fn uid [id response]))))
 
 (defmethod ig/init-key :sente/connection
   [_ _opts]
@@ -32,7 +32,6 @@
    {:packer :edn
     ;; :csrf-token-fn nil
     :user-id-fn client-id}))
-    
 
 (defn handle-message! [msg]
   ;; TODO - error handling

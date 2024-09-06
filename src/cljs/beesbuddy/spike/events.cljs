@@ -1,12 +1,12 @@
 (ns beesbuddy.spike.events
   (:require
-   [beesbuddy.spike.db :refer [default-db]]
-   [re-frame.core :refer [reg-event-db reg-event-fx reg-fx inject-cofx trim-v after path]]
-   [beesbuddy.spike.router :as router]
-   [day8.re-frame.http-fx]
    [ajax.core :refer [json-request-format json-response-format]]
+   [beesbuddy.spike.db :refer [default-db]]
+   [beesbuddy.spike.router :as router]
+   [cljs.reader :as rdr]
    [clojure.string :as str]
-   [cljs.reader :as rdr]))
+   [day8.re-frame.http-fx]
+   [re-frame.core :refer [reg-event-db reg-event-fx reg-fx inject-cofx trim-v after path]]))
 
 ;; -- Event Handlers ----------------------------------------------------------
 ;;

@@ -1,9 +1,9 @@
 (ns beesbuddy.spike.test-utils
   (:require
-    [beesbuddy.spike.core :as core]
-    [integrant.repl.state :as state]))
+   [beesbuddy.spike.core :as core]
+   [integrant.repl.state :as state]))
 
-(defn system-state 
+(defn system-state
   []
   (or @core/system state/system))
 

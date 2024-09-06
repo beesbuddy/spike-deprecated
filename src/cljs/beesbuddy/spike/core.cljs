@@ -1,11 +1,11 @@
 (ns beesbuddy.spike.core
   (:require
-   [reagent.dom :as d]
-   [re-frame.core :refer [dispatch-sync]]
-   [beesbuddy.spike.router :as router]
    [beesbuddy.spike.events]
+   [beesbuddy.spike.router :as router]
    [beesbuddy.spike.subs]
-   [beesbuddy.spike.views]))
+   [beesbuddy.spike.views]
+   [re-frame.core :refer [dispatch-sync]]
+   [reagent.dom :as d]))
 
 ;; -------------------------
 ;; Initialize app

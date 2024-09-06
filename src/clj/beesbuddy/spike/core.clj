@@ -1,29 +1,29 @@
 (ns beesbuddy.spike.core
   (:require
-    [clojure.tools.logging :as log]
-    [integrant.core :as ig]
-    [beesbuddy.spike.config :as config]
-    [beesbuddy.spike.env :refer [defaults]]
-
-    ;; Edges       
-    [kit.edge.server.undertow]
-    [beesbuddy.spike.web.handler]
-
+   [beesbuddy.spike.config :as config]
+   [beesbuddy.spike.env :refer [defaults]]
+   [beesbuddy.spike.web.handler]
     ;; Routes
-    [beesbuddy.spike.web.routes.api]
-    
-    [beesbuddy.spike.web.routes.pages] 
-    [beesbuddy.spike.web.routes.ws] 
-    [kit.edge.http.hato])
+   [beesbuddy.spike.web.routes.api]
+
+   [beesbuddy.spike.web.routes.pages]
+   [beesbuddy.spike.web.routes.ws]
+
+   [clojure.tools.logging :as log]
+
+   [integrant.core :as ig]
+   [kit.edge.http.hato]
+    ;; Edges       
+   [kit.edge.server.undertow])
   (:gen-class))
 
 ;; log uncaught exceptions in threads
 (Thread/setDefaultUncaughtExceptionHandler
-  (reify Thread$UncaughtExceptionHandler
-    (uncaughtException [_ thread ex]
-      (log/error {:what :uncaught-exception
-                  :exception ex
-                  :where (str "Uncaught exception on" (.getName thread))}))))
+ (reify Thread$UncaughtExceptionHandler
+   (uncaughtException [_ thread ex]
+     (log/error {:what :uncaught-exception
+                 :exception ex
+                 :where (str "Uncaught exception on" (.getName thread))}))))
 
 (defonce system (atom nil))
 

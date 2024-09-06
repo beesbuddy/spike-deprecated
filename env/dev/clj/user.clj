@@ -1,18 +1,18 @@
 (ns user
   "Userspace functions you can run by default in your local REPL."
   (:require
-    [clojure.pprint]
-    [clojure.spec.alpha :as s]
-    [clojure.tools.namespace.repl :as repl]
-    [criterium.core :as c]                                  ;; benchmarking
-    [expound.alpha :as expound]
-    [integrant.core :as ig]
-    [integrant.repl :refer [clear go halt prep init reset reset-all]]
-    [integrant.repl.state :as state]
-    [kit.api :as kit]
-    [portal.api :as p]
-    [lambdaisland.classpath.watch-deps :as watch-deps]      ;; hot loading for deps
-    [beesbuddy.spike.core :refer [start-app]]))
+   [beesbuddy.spike.core :refer [start-app]]
+   [clojure.pprint]
+   [clojure.spec.alpha :as s]
+   [clojure.tools.namespace.repl :as repl]
+   [criterium.core :as c]                                  ;; benchmarking
+   [expound.alpha :as expound]
+   [integrant.core :as ig]
+   [integrant.repl :refer [clear go halt prep init reset reset-all]]
+   [integrant.repl.state :as state]
+   [kit.api :as kit]
+   [lambdaisland.classpath.watch-deps :as watch-deps]      ;; hot loading for deps
+   [portal.api :as p]))
 
 ;; uncomment to enable hot loading for deps
 (watch-deps/start! {:aliases [:dev :test]})
@@ -47,7 +47,6 @@
 (repl/set-refresh-dirs "src/clj")
 
 (def refresh repl/refresh)
-
 
 (comment
   (go)

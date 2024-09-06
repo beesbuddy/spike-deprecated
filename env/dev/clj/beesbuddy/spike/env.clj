@@ -1,7 +1,7 @@
 (ns beesbuddy.spike.env
   (:require
-    [clojure.tools.logging :as log]
-    [beesbuddy.spike.dev-middleware :refer [wrap-dev]]))
+   [beesbuddy.spike.dev-middleware :refer [wrap-dev]]
+   [clojure.tools.logging :as log]))
 
 (def defaults
   {:init       (fn []

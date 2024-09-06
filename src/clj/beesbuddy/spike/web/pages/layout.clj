@@ -1,11 +1,11 @@
 (ns beesbuddy.spike.web.pages.layout
   (:require
    [clojure.java.io]
-   [selmer.parser :as parser]
+   [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
+   [ring.util.anti-forgery :refer [anti-forgery-field]]
    [ring.util.http-response :refer [ok]]
    [ring.util.response :refer [content-type]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]
-   [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
+   [selmer.parser :as parser]))
 
 (def selmer-opts {:custom-resource-path (clojure.java.io/resource "html")})
 

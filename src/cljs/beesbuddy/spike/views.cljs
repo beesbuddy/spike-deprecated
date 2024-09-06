@@ -2,7 +2,6 @@
   (:require [beesbuddy.spike.router :refer [url-for]]
             [re-frame.core :refer [subscribe]]))
 
-
 (defn header
   []
   (let [active-page @(subscribe [:active-page])]
