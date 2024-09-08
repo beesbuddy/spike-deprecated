@@ -12,3 +12,6 @@ test:
 
 uberjar:
 	clj -T:build all
+
+format:
+	clj -T:cljfmt fix

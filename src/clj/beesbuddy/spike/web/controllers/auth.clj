@@ -15,6 +15,8 @@
 (defmethod ig/init-key :controller/sign-in [_ {:keys [token-secret]}]
   (let [secret token-secret]
     (fn [request]
+      (def request request)
+      (tap> request)
       (let [username (get-in request [:parameters :body :username])
             password (get-in request [:parameters :body :password])
             valid? (some-> auth-data

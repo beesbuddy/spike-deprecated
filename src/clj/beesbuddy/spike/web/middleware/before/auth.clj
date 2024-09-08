@@ -8,6 +8,7 @@
 
 (derive :before-middleware/jwt-auth :before-middleware/auth)
 
+;; TODO: Rename to :before-middleware/wrap-jwt-auth
 (defmethod ig/init-key :before-middleware/auth [_ {:keys [token-secret]}]
   (let [secret token-secret]
     (fn [handler]

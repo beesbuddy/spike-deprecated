@@ -1,6 +1,5 @@
 (ns beesbuddy.spike.db
-  (:require [cljs.reader]
-            [re-frame.core :refer [reg-cofx]]))
+  (:require [cljs.reader]))
 
 ;; -- Default app-db Value  ---------------------------------------------------
 ;;
@@ -9,4 +8,4 @@
 ;;   1. `core.cljs` for  "(dispatch-sync [:initialise-db])"
 ;;   2. `events.cljs` for the registration of :initialise-db handler
 ;;
-(def default-db {:active-page :home})
+(def default-db {:active-page :home :sidebar-open true})

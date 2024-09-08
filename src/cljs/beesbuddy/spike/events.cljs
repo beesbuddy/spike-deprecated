@@ -14,9 +14,13 @@
  :initialise-db [] (fn [] {:db default-db}))
 
 (reg-event-fx :set-active-page []
-              (fn [{:keys [db]} [_ {:keys [page _slug _profile _favorited]}]]
+              (fn [{:keys [db]} [_ {:keys [page]}]]
                 (let [set-page (assoc db :active-page page)]
                   (case page
                     :home {:db set-page}
                     (:login :logout :register :settings) {:db set-page}))))
+
+(reg-event-fx :set-sidebar-open []
+              (fn [{:keys [db]} [_ {:keys [open]}]]
+                {:db (assoc db :sidebar-open open)}))
 

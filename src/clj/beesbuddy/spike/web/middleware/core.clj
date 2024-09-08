@@ -1,15 +1,8 @@
 (ns beesbuddy.spike.web.middleware.core
   (:require [beesbuddy.spike.env :as env]
+            [beesbuddy.spike.web.middleware.after.redirect :refer [wrap-redirect-to-home]]
             [ring.middleware.defaults :as defaults]
-            [ring.middleware.session.cookie :as cookie]
-            [ring.util.http-response :as http-response]))
-
-(defn wrap-redirect-to-home [handler]
-  (fn [request]
-    (let [response (handler request)]
-      (if (= 404 (:status response))
-        (http-response/temporary-redirect "/")
-        response))))
+            [ring.middleware.session.cookie :as cookie]))
 
 (defn wrap-base
   [{:keys [_metrics site-defaults-config cookie-secret] :as opts}]
@@ -19,4 +12,4 @@
         true (defaults/wrap-defaults
               (assoc-in site-defaults-config [:session :store] cookie-store))
               ;; redirect to home page if not found
-        false (wrap-redirect-to-home)))))
+        true (wrap-redirect-to-home)))))

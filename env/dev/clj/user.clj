@@ -19,13 +19,14 @@
 
 (alter-var-root #'s/*explain-out* (constantly expound/printer))
 
-;; (add-tap (bound-fn* clojure.pprint/pprint))
+(add-tap (bound-fn* clojure.pprint/pprint))
 
 ;; ----------------------------------------------------------------------------------------
 ;; Adds portal to improve data inspection.
 ;; ----------------------------------------------------------------------------------------
 (def portal (p/open))
 (add-tap #'p/submit)
+;; ----------------------------------------------------------------------------------------
 
 (defn dev-prep!
   []
@@ -47,6 +48,8 @@
 (repl/set-refresh-dirs "src/clj")
 
 (def refresh repl/refresh)
+
+(refresh)
 
 (comment
   (go)

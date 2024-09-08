@@ -4,7 +4,7 @@
    [integrant.core :as ig]
    [reitit.ring :as ring]
    [reitit.swagger-ui :as swagger-ui]
-   [ring.util.http-response :as http-response]))
+   [ring.util.response :as http-response]))
 
 (defmethod ig/init-key :handler/ring
   [_ {:keys [router api-path] :as opts}]
