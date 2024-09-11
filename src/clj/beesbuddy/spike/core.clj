@@ -1,13 +1,17 @@
 (ns beesbuddy.spike.core
   (:require [beesbuddy.spike.config :as config]
             [beesbuddy.spike.env :refer [defaults]]
+            [beesbuddy.spike.settings]
             [beesbuddy.spike.web.handler] ;; Routes
             [beesbuddy.spike.web.routes.api]
             [beesbuddy.spike.web.routes.pages]
             [beesbuddy.spike.web.routes.ws]
             [clojure.tools.logging :as log]
             [integrant.core :as ig]
+            [kit.edge.db.sql.conman]
+            [kit.edge.db.sql.migratus]
             [kit.edge.http.hato] ;; Edges       
+
             [kit.edge.server.undertow])
   (:gen-class))
 

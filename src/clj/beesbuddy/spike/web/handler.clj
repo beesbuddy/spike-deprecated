@@ -1,8 +1,8 @@
 (ns beesbuddy.spike.web.handler
   (:require
-   [beesbuddy.spike.web.middleware.core :as middleware]
    [beesbuddy.spike.web.controller]
    [beesbuddy.spike.web.middleware]
+   [beesbuddy.spike.web.middleware.core :as middleware]
    [integrant.core :as ig]
    [reitit.ring :as ring]
    [reitit.swagger-ui :as swagger-ui]

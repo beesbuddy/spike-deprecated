@@ -1,6 +1,7 @@
 (ns user
   "Userspace functions you can run by default in your local REPL."
   #_{:clj-kondo/ignore [:unused-referred-var]}
+  #_{:clj-kondo/ignore [:unused-namespace]}
   (:require [beesbuddy.spike.config :as config]
             [clojure.pprint]
             [clojure.spec.alpha :as s]
@@ -8,7 +9,9 @@
             [expound.alpha :as expound]
             [integrant.core :as ig]
             [integrant.repl :refer [go reset halt]]
+            [kit.api :as kit]
             [lambdaisland.classpath.watch-deps :as watch-deps] ;; hot loading for deps
+            [migratus.core :as migratus]
             [portal.api :as p]))
 
 ;; uncomment to enable hot loading for deps

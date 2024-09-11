@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS settings (key VARCHAR(255), value VARCHAR(255))
