@@ -1,4 +1,6 @@
 (ns beesbuddy.spike.events
+  #_{:clj-kondo/ignore [:unused-namespace]}
+  #_{:clj-kondo/ignore [:unused-referred-var]}
   (:require
    [ajax.core :refer [json-request-format json-response-format]]
    [beesbuddy.spike.db :refer [default-db]]

@@ -11,5 +11,5 @@
       (cond-> ((:middleware env/defaults) handler opts)
         true (defaults/wrap-defaults
               (assoc-in site-defaults-config [:session :store] cookie-store))
-              ;; redirect to home page if not found
+        ;; redirect to home page if not found
         true (wrap-redirect-to-home)))))

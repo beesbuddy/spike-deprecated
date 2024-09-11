@@ -1,24 +1,24 @@
 (ns user
   "Userspace functions you can run by default in your local REPL."
-  (:require
-   [beesbuddy.spike.core :refer [start-app]]
-   [clojure.pprint]
-   [clojure.spec.alpha :as s]
-   [clojure.tools.namespace.repl :as repl]
-   [criterium.core :as c]                                  ;; benchmarking
-   [expound.alpha :as expound]
-   [integrant.core :as ig]
-   [integrant.repl :refer [clear go halt prep init reset reset-all]]
-   [integrant.repl.state :as state]
-   [kit.api :as kit]
-   [lambdaisland.classpath.watch-deps :as watch-deps]      ;; hot loading for deps
-   [portal.api :as p]))
+  #_{:clj-kondo/ignore [:unused-referred-var]}
+  (:require [beesbuddy.spike.config :as config]
+            [clojure.pprint]
+            [clojure.spec.alpha :as s]
+            [clojure.tools.namespace.repl :as repl] ;; benchmarking
+            [expound.alpha :as expound]
+            [integrant.core :as ig]
+            [integrant.repl :refer [go reset halt]]
+            [lambdaisland.classpath.watch-deps :as watch-deps] ;; hot loading for deps
+            [portal.api :as p]))
 
 ;; uncomment to enable hot loading for deps
 (watch-deps/start! {:aliases [:dev :test]})
 
 (alter-var-root #'s/*explain-out* (constantly expound/printer))
 
+;; ----------------------------------------------------------------------------------------
+;; Adds tap> to improve data inspection in the REPL.
+;; ----------------------------------------------------------------------------------------
 (add-tap (bound-fn* clojure.pprint/pprint))
 
 ;; ----------------------------------------------------------------------------------------
@@ -31,13 +31,13 @@
 (defn dev-prep!
   []
   (integrant.repl/set-prep! (fn []
-                              (-> (beesbuddy.spike.config/system-config {:profile :dev})
+                              (-> (config/system-config {:profile :dev})
                                   (ig/prep)))))
 
 (defn test-prep!
   []
   (integrant.repl/set-prep! (fn []
-                              (-> (beesbuddy.spike.config/system-config {:profile :test})
+                              (-> (config/system-config {:profile :test})
                                   (ig/prep)))))
 
 ;; Can change this to test-prep! if you want to run tests as the test profile in your repl

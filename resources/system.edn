@@ -37,9 +37,9 @@
  :reitit.routes/api
  {:base-path                  "/api"
   :env                        #ig/ref :system/env
-  :before-middleware/jwt-auth #ig/ref :before-middleware/auth
-  :controller/jwt-sign-in     #ig/ref :controller/sign-in
-  :http/client                #ig/ref :http.client/hato}
+  :http/client                #ig/ref :http.client/hato
+  :jwt-sign-in                #ig/ref :controller/jwt-sign-in
+  :wrap-jwt-auth              #ig/ref :middleware/wrap-jwt-auth}
 
  :router/routes
  {:routes #ig/refset :reitit/routes}
@@ -66,8 +66,8 @@
  :http.client/hato
  {}
 
- :before-middleware/auth
+ :controller/jwt-sign-in
  {:token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}
 
- :controller/sign-in
+ :middleware/wrap-jwt-auth
  {:token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}}

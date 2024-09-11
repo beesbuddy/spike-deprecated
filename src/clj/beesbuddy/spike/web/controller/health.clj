@@ -1,4 +1,4 @@
-(ns beesbuddy.spike.web.controllers.health
+(ns beesbuddy.spike.web.controller.health
   (:require
    [ring.util.http-response :as http-response])
   (:import

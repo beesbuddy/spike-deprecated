@@ -1,7 +1,7 @@
 {:paths   ["src/clj"
            "resources" "src/cljs"]
 
- :deps    {org.clojure/clojure             {:mvn/version "1.11.1"}
+ :deps    {org.clojure/clojure             {:mvn/version "1.12.0"}
 
            ;; Routing
            metosin/reitit                  {:mvn/version "0.6.0"}
@@ -44,8 +44,7 @@
            ;; to check for errors without fixing them:
            ;;
            ;;    clj -T:cljfmt check
-           :cljfmt
-           {:deps       {#_io.github.weavejester/cljfmt
+           :cljfmt {:deps       {#_io.github.weavejester/cljfmt
                          #_{:git/tag "0.12.0", :git/sha "434408f6909924f524c8027b37422d32bb49622d"}
                                                  ;; using my fork of cljfmt until these PRs are merged upstream:
                                                  ;; - https://github.com/weavejester/cljfmt/pull/346

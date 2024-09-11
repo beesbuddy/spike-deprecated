@@ -1,20 +1,14 @@
 (ns beesbuddy.spike.core
-  (:require
-   [beesbuddy.spike.config :as config]
-   [beesbuddy.spike.env :refer [defaults]]
-   [beesbuddy.spike.web.handler]
-    ;; Routes
-   [beesbuddy.spike.web.routes.api]
-
-   [beesbuddy.spike.web.routes.pages]
-   [beesbuddy.spike.web.routes.ws]
-
-   [clojure.tools.logging :as log]
-
-   [integrant.core :as ig]
-   [kit.edge.http.hato]
-    ;; Edges       
-   [kit.edge.server.undertow])
+  (:require [beesbuddy.spike.config :as config]
+            [beesbuddy.spike.env :refer [defaults]]
+            [beesbuddy.spike.web.handler] ;; Routes
+            [beesbuddy.spike.web.routes.api]
+            [beesbuddy.spike.web.routes.pages]
+            [beesbuddy.spike.web.routes.ws]
+            [clojure.tools.logging :as log]
+            [integrant.core :as ig]
+            [kit.edge.http.hato] ;; Edges       
+            [kit.edge.server.undertow])
   (:gen-class))
 
 ;; log uncaught exceptions in threads
