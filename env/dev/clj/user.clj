@@ -46,7 +46,13 @@
 ;; Can change this to test-prep! if you want to run tests as the test profile in your repl
 ;; You can run tests in the dev profile, too, but there are some differences between
 ;; the two profiles.
-(dev-prep!)
+(def system (dev-prep!))
+
+(def migrator (:migratus/migrator system))
+
+(defn create-migration
+  [name]
+  (migratus/create migrator name))
 
 (repl/set-refresh-dirs "src/clj")
 
