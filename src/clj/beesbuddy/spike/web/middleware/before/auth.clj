@@ -1,16 +1,13 @@
 (ns beesbuddy.spike.web.middleware.before.auth
   (:require
    [buddy.auth.backends :as backends]
-   [buddy.auth.middleware :as auth-middleware]
-   [integrant.core :as ig]))
+   [buddy.auth.middleware :as auth-middleware]))
 
 (defn jwt-backend [secret] (backends/jws {:secret secret}))
 
-(defmethod ig/init-key :middleware/wrap-jwt-auth [_ {:keys [token-secret]}]
-  (let [secret token-secret]
+(defn wrap-jwt-auth [settings]
+  (let [token-secret (:TOKENSECRET settings)]
     (fn [handler]
       (-> handler
-          (auth-middleware/wrap-authentication (jwt-backend secret))
-          (auth-middleware/wrap-authorization (jwt-backend secret))))))
-
-(defmethod ig/halt-key! :middleware/wrap-jwt-auth [_ _] nil)
+          (auth-middleware/wrap-authentication (jwt-backend token-secret))
+          (auth-middleware/wrap-authorization (jwt-backend token-secret))))))

@@ -1,15 +1,16 @@
 (ns beesbuddy.spike.web.routes.api
-  (:require
-   [beesbuddy.spike.web.controller.health :as health]
-   [beesbuddy.spike.web.middleware.exception :as exception]
-   [beesbuddy.spike.web.middleware.formats :as formats]
-   [buddy.auth :refer [authenticated?]]
-   [integrant.core :as ig]
-   [reitit.coercion.malli :as malli]
-   [reitit.ring.coercion :as coercion]
-   [reitit.ring.middleware.muuntaja :as muuntaja]
-   [reitit.ring.middleware.parameters :as parameters]
-   [reitit.swagger :as swagger]))
+  (:require [beesbuddy.spike.web.controller.auth :refer [jwt-sign-in]]
+            [beesbuddy.spike.web.controller.health :as health]
+            [beesbuddy.spike.web.middleware.before.auth :refer [wrap-jwt-auth]]
+            [beesbuddy.spike.web.middleware.exception :as exception]
+            [beesbuddy.spike.web.middleware.formats :as formats]
+            [buddy.auth :refer [authenticated?]]
+            [integrant.core :as ig]
+            [reitit.coercion.malli :as malli]
+            [reitit.ring.coercion :as coercion]
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [reitit.ring.middleware.parameters :as parameters]
+            [reitit.swagger :as swagger]))
 
 (def route-data
   {:coercion   malli/coercion
@@ -42,20 +43,20 @@
     {:body {:message "Authorized"} :status 200 :content-type "application/json"}))
 
 ;; Routes
-(defn api-routes [{:keys [wrap-jwt-auth jwt-sign-in settings]}]
+(defn api-routes [{:keys [settings]}]
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title "Spike API"}}
            :handler (swagger/create-swagger-handler)}}]
    ["/sign-in"
     {:post       {:summary "Sign in"
-                  :handler (fn [req] (tap> settings) (jwt-sign-in req))}
+                  :handler (jwt-sign-in settings)}
      :parameters {:body {:username string?
                          :password string?}}}]
    ["/health"
     {:get {:summary "Health check"
            :handler health/healthcheck!}}]
-   ["/v1" {:middleware [wrap-jwt-auth]}
+   ["/v1" {:middleware [(wrap-jwt-auth settings)]}
     ["/secured" {:get {:summary "Secured route"
                        :handler secured
                        :swagger {:security [{:jwtAuth []}]}}}]]])

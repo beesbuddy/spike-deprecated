@@ -38,8 +38,6 @@
  {:base-path "/api"
   :env #ig/ref :system/env
   :http/client #ig/ref :http.client/hato
-  :jwt-sign-in #ig/ref :controller/jwt-sign-in
-  :wrap-jwt-auth #ig/ref :middleware/wrap-jwt-auth
   :settings #ig/ref :settings/container
   :query-fn #ig/ref :db.sql/query-fn}
 
@@ -67,12 +65,6 @@
 
  :http.client/hato
  {}
-
- :controller/jwt-sign-in
- {:token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}
-
- :middleware/wrap-jwt-auth
- {:token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}
 
  :db.sql/query-fn {:conn #ig/ref :db.sql/connection,
                    :options {},
