@@ -1,4 +1,4 @@
-(ns beesbuddy.spike.settings
+(ns beesbuddy.spike.web.service.settings
   (:require [clojure.edn :as edn]
             [clojure.string :as str]
             [integrant.core :as ig]))
@@ -17,7 +17,7 @@
   [_ value]
   (edn/read-string value))
 
-(defmethod ig/init-key :settings/container
+(defmethod ig/init-key :beesbuddy.spike.web.service.settings/db-settings
   [_ {:keys [query-fn token-secret]}]
   ;; Fetch settings from the database
   (let [settings (query-fn :get-settings {})

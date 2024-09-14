@@ -1,7 +1,5 @@
 (ns user
   "Userspace functions you can run by default in your local REPL."
-  #_{:clj-kondo/ignore [:unused-referred-var]}
-  #_{:clj-kondo/ignore [:unused-namespace]}
   (:require [beesbuddy.spike.config :as config]
             [clojure.pprint]
             [clojure.spec.alpha :as s]
@@ -9,9 +7,10 @@
             [expound.alpha :as expound]
             [integrant.core :as ig]
             [integrant.repl :refer [go reset halt]]
+            [integrant.repl.state :as state]
             [kit.api :as kit]
             [lambdaisland.classpath.watch-deps :as watch-deps] ;; hot loading for deps
-            [migratus.core :as migratus]
+            [migratus.core]
             [portal.api :as p]))
 
 ;; uncomment to enable hot loading for deps
@@ -46,13 +45,7 @@
 ;; Can change this to test-prep! if you want to run tests as the test profile in your repl
 ;; You can run tests in the dev profile, too, but there are some differences between
 ;; the two profiles.
-(def system (dev-prep!))
-
-(def migrator (:migratus/migrator system))
-
-(defn create-migration
-  [name]
-  (migratus/create migrator name))
+(dev-prep!)
 
 (repl/set-refresh-dirs "src/clj")
 
@@ -63,5 +56,10 @@
 (comment
   (go)
   (reset)
+  (def query-fn (:db.sql/query-fn state/system))
+  (def migrator (:migratus/migrator state/system))
+  (migratus.core/create migrator "add-table")
+  (migratus.core/rollback migrator)
+  (migratus.core/migrate migrator)
   (tap> :hello)
   (-> @portal first))

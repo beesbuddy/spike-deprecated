@@ -43,20 +43,20 @@
     {:body {:message "Authorized"} :status 200 :content-type "application/json"}))
 
 ;; Routes
-(defn api-routes [{:keys [settings]}]
+(defn api-routes [{:keys [jwt-sign-in wrap-jwt-auth]}]
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title "Spike API"}}
            :handler (swagger/create-swagger-handler)}}]
    ["/sign-in"
     {:post       {:summary "Sign in"
-                  :handler (jwt-sign-in settings)}
+                  :handler jwt-sign-in}
      :parameters {:body {:username string?
                          :password string?}}}]
    ["/health"
     {:get {:summary "Health check"
            :handler health/healthcheck!}}]
-   ["/v1" {:middleware [(wrap-jwt-auth settings)]}
+   ["/v1" {:middleware [wrap-jwt-auth]}
     ["/secured" {:get {:summary "Secured route"
                        :handler secured
                        :swagger {:security [{:jwtAuth []}]}}}]]])

@@ -38,8 +38,8 @@
  {:base-path "/api"
   :env #ig/ref :system/env
   :http/client #ig/ref :http.client/hato
-  :settings #ig/ref :settings/container
-  :query-fn #ig/ref :db.sql/query-fn}
+  :jwt-sign-in #ig/ref :beesbuddy.spike.web.controller.auth/jwt-sign-in
+  :wrap-jwt-auth #ig/ref :beesbuddy.spike.web.middleware.before.auth/wrap-jwt-auth}
 
  :router/routes
  {:routes #ig/refset :reitit/routes}
@@ -79,6 +79,12 @@
                               :prod {:jdbc-url #env JDBC_URL}}
  
  
- :settings/container {:query-fn #ig/ref :db.sql/query-fn 
+ :beesbuddy.spike.web.service.settings/db-settings {:query-fn #ig/ref :db.sql/query-fn 
                       :token-secret #or [#env TOKENSECRET "72523579b1f54f78bcfae052f78fc99a"]}
- }
+ :beesbuddy.spike.web.service.auth/store-user {:query-fn #ig/ref :db.sql/query-fn}
+ :beesbuddy.spike.web.service.auth/verify-user {:query-fn #ig/ref :db.sql/query-fn}
+
+ :beesbuddy.spike.web.middleware.before.auth/wrap-jwt-auth {:settings #ig/ref :beesbuddy.spike.web.service.settings/db-settings}
+
+ :beesbuddy.spike.web.controller.auth/jwt-sign-in {:settings #ig/ref :beesbuddy.spike.web.service.settings/db-settings
+                                                  :verify-user #ig/ref :beesbuddy.spike.web.service.auth/verify-user}}
