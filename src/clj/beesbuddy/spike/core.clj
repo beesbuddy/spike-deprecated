@@ -5,8 +5,6 @@
             [beesbuddy.spike.web.routes.api]
             [beesbuddy.spike.web.routes.pages]
             [beesbuddy.spike.web.routes.ws]
-            [beesbuddy.spike.web.service.auth]
-            [beesbuddy.spike.web.service.settings] ;; Services
             [clojure.tools.logging :as log]
             [integrant.core :as ig]
             [kit.edge.db.sql.conman]
