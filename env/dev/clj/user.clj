@@ -57,6 +57,8 @@
   (go)
   (reset)
   (def query-fn (:db.sql/query-fn state/system))
+  (query-fn :store-user "test" "test")
+  (query-fn :find-user-by-username {:username "test"})
   (def migrator (:migratus/migrator state/system))
   (migratus.core/create migrator "add-table")
   (migratus.core/rollback migrator)

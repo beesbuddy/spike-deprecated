@@ -3,8 +3,8 @@
             [clj-time.core :as time]
             [integrant.core :as ig]))
 
-(defn login-ok [body] {:status 200 :body body})
-(defn login-bad-request [body] {:status 400 :body body})
+(defn- login-ok [body] {:status 200 :body body})
+(defn- login-bad-request [body] {:status 400 :body body})
 
 (defn jwt-sign-in [settings verify-user]
   (let [token-secret (:TOKENSECRET settings)]

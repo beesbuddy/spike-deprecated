@@ -1,8 +1,5 @@
 (ns beesbuddy.spike.web.routes.api
-  (:require [beesbuddy.spike.web.controller.auth :refer [jwt-sign-in]]
-            [beesbuddy.spike.web.controller.health :as health]
-            [beesbuddy.spike.web.middleware.before.auth :refer [wrap-jwt-auth]]
-            [beesbuddy.spike.web.middleware.exception :as exception]
+  (:require [beesbuddy.spike.web.middleware.exception :as exception]
             [beesbuddy.spike.web.middleware.formats :as formats]
             [buddy.auth :refer [authenticated?]]
             [integrant.core :as ig]
@@ -43,7 +40,7 @@
     {:body {:message "Authorized"} :status 200 :content-type "application/json"}))
 
 ;; Routes
-(defn api-routes [{:keys [jwt-sign-in wrap-jwt-auth]}]
+(defn api-routes [{:keys [jwt-sign-in healthcheck! wrap-jwt-auth]}]
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title "Spike API"}}
@@ -55,7 +52,7 @@
                          :password string?}}}]
    ["/health"
     {:get {:summary "Health check"
-           :handler health/healthcheck!}}]
+           :handler healthcheck!}}]
    ["/v1" {:middleware [wrap-jwt-auth]}
     ["/secured" {:get {:summary "Secured route"
                        :handler secured

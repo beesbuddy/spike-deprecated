@@ -39,6 +39,7 @@
   :env #ig/ref :system/env
   :http/client #ig/ref :http.client/hato
   :jwt-sign-in #ig/ref :beesbuddy.spike.web.controller.auth/jwt-sign-in
+  :healthcheck! #ig/ref :beesbuddy.spike.web.controller.health/healthcheck!
   :wrap-jwt-auth #ig/ref :beesbuddy.spike.web.middleware.before.auth/wrap-jwt-auth}
 
  :router/routes
@@ -87,4 +88,5 @@
  :beesbuddy.spike.web.middleware.before.auth/wrap-jwt-auth {:settings #ig/ref :beesbuddy.spike.web.service.settings/db-settings}
 
  :beesbuddy.spike.web.controller.auth/jwt-sign-in {:settings #ig/ref :beesbuddy.spike.web.service.settings/db-settings
-                                                  :verify-user #ig/ref :beesbuddy.spike.web.service.auth/verify-user}}
+                                                  :verify-user #ig/ref :beesbuddy.spike.web.service.auth/verify-user}
+ :beesbuddy.spike.web.controller.health/healthcheck! {}}

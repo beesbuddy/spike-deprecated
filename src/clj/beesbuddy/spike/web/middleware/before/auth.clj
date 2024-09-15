@@ -1,10 +1,10 @@
 (ns beesbuddy.spike.web.middleware.before.auth
   (:require
-   [integrant.core :as ig]
    [buddy.auth.backends :as backends]
-   [buddy.auth.middleware :as auth-middleware]))
+   [buddy.auth.middleware :as auth-middleware]
+   [integrant.core :as ig]))
 
-(defn jwt-backend [secret] (backends/jws {:secret secret}))
+(defn- jwt-backend [secret] (backends/jws {:secret secret}))
 
 (defn wrap-jwt-auth [settings]
   (let [token-secret (:TOKENSECRET settings)]

@@ -1,5 +1,6 @@
 (ns beesbuddy.spike.web.controller.health
   (:require
+   [integrant.core :as ig]
    [ring.util.http-response :as http-response])
   (:import
    (java.lang.management ManagementFactory)
@@ -12,3 +13,7 @@
     :up-since (str (Date. (.getStartTime (ManagementFactory/getRuntimeMXBean))))
     :app      {:status  "up"
                :message ""}}))
+
+(defmethod ig/init-key :beesbuddy.spike.web.controller.health/healthcheck!
+  [_ _]
+  (fn [request] (healthcheck! request)))
