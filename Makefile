@@ -7,8 +7,8 @@ run:
 repl:
 	clj -M:dev:nrepl
 
-test:
-	clj -M:test
+watch-tests:
+	clj -M:test --watch
 
 uberjar:
 	clj -T:build all
