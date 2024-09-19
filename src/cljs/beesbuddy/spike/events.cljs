@@ -1,14 +1,7 @@
 (ns beesbuddy.spike.events
-  #_{:clj-kondo/ignore [:unused-namespace]}
-  #_{:clj-kondo/ignore [:unused-referred-var]}
-  (:require
-   [ajax.core :refer [json-request-format json-response-format]]
-   [beesbuddy.spike.db :refer [default-db]]
-   [beesbuddy.spike.router :as router]
-   [cljs.reader :as rdr]
-   [clojure.string :as str]
-   [day8.re-frame.http-fx]
-   [re-frame.core :refer [reg-event-db reg-event-fx reg-fx inject-cofx trim-v after path]]))
+  (:require [beesbuddy.spike.db :refer [default-db]]
+            [day8.re-frame.http-fx]
+            [re-frame.core :refer [reg-event-fx]]))
 
 ;; -- Event Handlers ----------------------------------------------------------
 ;;

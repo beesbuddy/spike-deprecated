@@ -50,6 +50,6 @@
 ;; -- set-token! --------------------------------------------------------------
 ;; To change route after some actions we will need to set url and for that we
 ;; will use set-token!, taking the history and a token.
-(defn set-token!
+(defn set-page!
   [token]
   (pushy/set-token! history token))

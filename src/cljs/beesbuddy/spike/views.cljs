@@ -1,11 +1,26 @@
 (ns beesbuddy.spike.views
-  (:require [beesbuddy.spike.router :refer [url-for]]
-            [re-frame.core :refer [subscribe dispatch]]
+  (:require ["@mui/material" :as mui]
+            ["@mui/material/Card" :default MuiCard]
+            ["@mui/material/styles" :refer [useTheme]]
+            ["@mui/system" :refer [styled]]
+            [beesbuddy.spike.router :refer [set-page! url-for]]
+            [beesbuddy.spike.utils :refer [defn-mui-styled]]
+            [re-frame.core :refer [dispatch subscribe]]
             [reagent.core :as r]))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn debugger []
-  (js/eval "debugger"))
+
+(defn-mui-styled card-styles 
+  :padding (fn [theme] (.spacing theme 4)))
+
+(defn text-button [label click-handler] 
+  [:> mui/Button {:variant "outlined" :on-click click-handler} label])
+
+(defn card []
+  (let [theme (useTheme)]
+    [:> ((styled MuiCard)
+         card-styles) {:theme theme}
+     [:div {:class "text-3xl font-bold"} "Welcome to Spike!"]
+     [text-button "Move to login" #(set-page! (url-for :login))]]))
 
 (defn header []
   [:header {:class "sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none"}
@@ -13,27 +28,26 @@
     [:div {:class "flex items-center gap-2 sm:gap-4 lg:hidden"}
      [:button
       {:class "z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
-       :on-click (fn [_e] (dispatch [:set-sidebar-open {:open true}]))}
-      "---"]]]])
+       :on-click #(dispatch [:set-sidebar-open {:open true}])}
+      "-->"]]]])
+
+(defn nav-link [page title]
+  (let [active-page (subscribe [:active-page])]
+    [:li {:class (str (when (= @active-page (keyword page)) "bg-graydark dark:bg-meta-4") "group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4")}
+     [:a {:href (url-for (keyword page)) :style {:width "100%"}} title]]))
 
 (defn menu
   []
-  (let [active-page @(subscribe [:active-page])]
-    [:div {:class "no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear"}
-     [:nav {:class "mt-5 py-4 px-4 lg:mt-9 lg:px-6"}
-      [:div
-       [:h3 {:class "mb-4 ml-4 text-sm font-semibold text-bodydark2"} "Menu"]
-       [:ul {:class "mb-6 flex flex-col gap-1.5"}
-        [:li {:class "group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"}
-         [:a {:href (url-for :home) :class (when (= active-page :home) "active")} "Home"]]
-        [:li {:class "group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"}
-         [:a {:href (url-for :login) :class (when (= active-page :login) "active")} "Sign in"]]
-        [:li {:class "group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"}
-         [:a {:href (url-for :logout) :class (when (= active-page :logout) "active")} "Sign out"]]
-        [:li {:class "group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"}
-         [:a {:href (url-for :register) :class (when (= active-page :register) "active")} "Sign up"]]
-        [:li {:class "group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"}
-         [:a {:href (url-for :settings) :class (when (= active-page :settings) "active")} "Setings"]]]]]]))
+  [:div {:class "no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear"}
+   [:nav {:class "mt-5 py-4 px-4 lg:mt-9 lg:px-6"}
+    [:div
+     [:h3 {:class "mb-4 ml-4 text-sm font-semibold text-bodydark2"} "Menu"]
+     [:ul {:class "mb-6 flex flex-col gap-1.5"}
+      [nav-link :home "Home"]
+      [nav-link :login "Login"]
+      [nav-link :logout "Logout"]
+      [nav-link :register "Sign up"]
+      [nav-link :settings "Settings"]]]]])
 
 (defn sidebar []
   (let [sidebar-ref (clojure.core/atom nil)
@@ -65,8 +79,8 @@
           [:a {:href (url-for :home)} "Spike"]
           [:button {:aria-controls "sidebar"
                     :class "block lg:hidden"
-                    :on-click (fn [] (dispatch [:set-sidebar-open {:open false}]))}
-           "---"]]
+                    :on-click #(dispatch [:set-sidebar-open {:open false}])}
+           "<--"]]
          [:div {:class "no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear"}
           [menu]]])})))
 
@@ -102,8 +116,8 @@
 
 (defn home
   []
-  [:div
-   [:span {:class "text-3xl font-bold underline"} "Welcome to Spike! (Home view)"]])
+  [:<>
+   [:f> card]])
 
 (defn pages
   [page-name]
