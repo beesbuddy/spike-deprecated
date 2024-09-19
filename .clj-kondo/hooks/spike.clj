@@ -1,4 +1,4 @@
-(ns hooks.defn-mui-styled
+(ns hooks.spike
   (:require [clj-kondo.hooks-api :as api]))
 
 (defn defn-mui-styled [{:keys [node]}]

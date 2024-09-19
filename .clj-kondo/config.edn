@@ -1,2 +1,2 @@
-{:hooks {:analyze-call {beesbuddy.spike.utils/defn-mui-styled hooks.defn-mui-styled/defn-mui-styled}}
+{:hooks {:analyze-call {beesbuddy.spike.utils/defn-mui-styled hooks.spike/defn-mui-styled}}
  :lint-as {beesbuddy.spike.utils/defn-mui-styled clojure.core/defn}}
