@@ -7,7 +7,7 @@ run:
 repl:
 	clj -M:dev:nrepl
 
-watch-tests:
+test-watch:
 	clj -M:test --watch
 
 uberjar:

@@ -13,16 +13,19 @@
 
            ;; Logging
            ch.qos.logback/logback-classic {:mvn/version "1.4.14"}
+           com.brunobonacci/mulog {:mvn/version "0.9.0"}
 
            ;; Data coercion
            luminus-transit/luminus-transit {:mvn/version "0.1.6"
                                             :exclusions [com.cognitect/transit-clj]}
            metosin/muuntaja {:mvn/version "0.6.8"}
-           ;;
+
+           ;; Security
            potemkin/potemkin {:mvn/version "0.4.6"}
            buddy/buddy-hashers {:mvn/version "1.4.0"}
            buddy/buddy-auth {:mvn/version "3.0.323"}
-           ;; kit Libs
+
+           ;; Kit Libs
            io.github.kit-clj/kit-core {:mvn/version "1.0.7"}
            io.github.kit-clj/kit-undertow {:mvn/version "1.0.6"}
            selmer/selmer {:mvn/version "1.12.50"}
@@ -94,9 +97,9 @@
                                  org.clojure/tools.namespace          {:mvn/version "1.4.5"}
                                  lambdaisland/kaocha                  {:mvn/version "1.91.1392"}
                                  com.lambdaisland/classpath           {:mvn/version "0.5.48"}}
-                   :exec-fn     cognitect.test-runner.api/test
-                   :extra-paths ["env/dev/clj" "env/dev/resources" "env/test/resources" "test/clj"]
-                   :main-opts   ["-e" "(require 'pjstadig.humane-test-output) (pjstadig.humane-test-output/activate!)"
-                                 "-m" "kaocha.runner"]}
+                   :exec-fn      cognitect.test-runner.api/test
+                   :extra-paths  ["env/dev/clj" "env/dev/resources" "env/test/resources" "test/clj"]
+                   :main-opts    ["-e" "(require 'pjstadig.humane-test-output) (pjstadig.humane-test-output/activate!)"
+                                  "-m" "kaocha.runner"]}
            }}
 

@@ -8,11 +8,11 @@
             [re-frame.core :refer [dispatch subscribe]]
             [reagent.core :as r]))
 
-
-(defn-mui-styled card-styles 
+#_{:clj-kondo/ignore [:unused-binding]}
+(defn-mui-styled card-styles
   :padding (fn [theme] (.spacing theme 4)))
 
-(defn text-button [label click-handler] 
+(defn text-button [label click-handler]
   [:> mui/Button {:variant "outlined" :on-click click-handler} label])
 
 (defn card []
