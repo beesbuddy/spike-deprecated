@@ -1,8 +1,27 @@
 (ns beesbuddy.spike.components
-  (:require [beesbuddy.spike.icons :refer [sidebar-close-icon]]
-            [beesbuddy.spike.router :refer [url-for]]
+  (:require ["@mui/material" :as mui]
+            ["@mui/material/Card" :default MuiCard]
+            ["@mui/material/styles" :refer [useTheme]]
+            ["@mui/system" :refer [styled]]
+            [beesbuddy.spike.icons :refer [sidebar-close-icon]]
+            [beesbuddy.spike.router :refer [set-page! url-for]]
+            [beesbuddy.spike.utils :refer [defn-mui-styled]]
             [re-frame.core :refer [dispatch subscribe]]
             [reagent.core :as r]))
+
+#_{:clj-kondo/ignore [:unused-binding]}
+(defn-mui-styled card-styles
+  :padding (fn [theme] (.spacing theme 4)))
+
+(defn text-button [label click-handler]
+  [:> mui/Button {:variant "outlined" :on-click click-handler} label])
+
+(defn card []
+  (let [theme (useTheme)]
+    [:> ((styled MuiCard)
+         card-styles) {:theme theme}
+     [:div {:class "text-3xl font-bold"} "Welcome to Spike!"]
+     [text-button "Move to login" #(set-page! :login)]]))
 
 (defn header []
   [:header {:class "sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none"}
