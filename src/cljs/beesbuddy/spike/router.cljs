@@ -15,7 +15,9 @@
         "login"    :login
         "logout"   :logout
         "register" :register
-        "settings" :settings}])
+        "settings" :settings
+        "not-found" :not-found
+        }])
 
 ;; -- History -----------------------------------------------------------------
 ;; we need to know the history of our routes so that we can navigate back and
@@ -47,9 +49,9 @@
 ;; usage: (url-for :home)
 (def url-for (partial bidi/path-for routes))
 
-;; -- set-token! --------------------------------------------------------------
+;; -- set-page! --------------------------------------------------------------
 ;; To change route after some actions we will need to set url and for that we
 ;; will use set-token!, taking the history and a token.
 (defn set-page!
-  [token]
-  (pushy/set-token! history token))
+  [page]
+  (pushy/set-token! history (url-for (keyword page))))

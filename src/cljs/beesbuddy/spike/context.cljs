@@ -1,5 +1,5 @@
 (ns beesbuddy.spike.context
-    "The following provide and consume Reagent components expose React contexts without fuss.
+  "The following provide and consume Reagent components expose React contexts without fuss.
     * Contexts can be keywords or React context instances. In the case of keywords, React context instances are created behind the scenes.
     * Context values are left alone, they remain as JS or Clojure values (no coercion).
     * Ratoms inside consume work as you'd expect.
@@ -13,8 +13,8 @@
         [:div {:style {:color color}} \"Colorful Text\"])]]
     ```
     From https://gist.github.com/mhuebert/d400701f7eddbc4fffa811c70178a8c1"
-    (:require ["react" :as react]
-              [reagent.core :as reagent]))
+  (:require ["react" :as react]
+            [reagent.core :as reagent]))
 
 (defonce get-context
   (memoize

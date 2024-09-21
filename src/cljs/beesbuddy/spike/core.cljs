@@ -3,7 +3,7 @@
    [beesbuddy.spike.events]
    [beesbuddy.spike.router :as router]
    [beesbuddy.spike.subs]
-   [beesbuddy.spike.views]
+   [beesbuddy.spike.pages]
    [re-frame.core :refer [dispatch-sync]]
    [reagent.dom :as d]))
 
@@ -24,7 +24,7 @@
   ;; Render the UI into the HTML's <div id="app" /> element
   ;; The view function `conduit.views/conduit-app` is the
   ;; root view for the entire UI.
-  (d/render [beesbuddy.spike.views/app]
+  (d/render [beesbuddy.spike.pages/active-page]
             (.getElementById js/document "app")))
 
 (defn ^:export ^:dev/once init! []
