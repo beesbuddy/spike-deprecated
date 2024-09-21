@@ -15,9 +15,13 @@
 (defn home [request]
   (layout/render request "home.html"))
 
+(defn dashboard [request]
+  (layout/render request "dashboard.html"))
+
 ;; Routes
 (defn page-routes [_opts]
-  [["/" {:get home}]])
+  [["/" {:get home}]
+   ["/dashboard*" {:get dashboard}]])
 
 (def route-data
   {:middleware

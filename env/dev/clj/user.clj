@@ -8,7 +8,7 @@
             [com.brunobonacci.mulog :as mulog]
             [expound.alpha :as expound]
             [integrant.core :as ig]
-            [integrant.repl :refer [go reset]]
+            [integrant.repl :refer [go reset halt]]
             [integrant.repl.state :as state]
             [lambdaisland.classpath.watch-deps :as watch-deps] ;; hot loading for deps
             [migratus.core]

@@ -11,12 +11,12 @@
 ;; show us. A route is simply a data structure--a vector--with a pattern and
 ;; a result.
 (def routes
-  ["/" {""         :home
-        "login"    :login
-        "logout"   :logout
-        "register" :register
-        "settings" :settings
-        "not-found" :not-found}])
+  ["/dashboard/" {""         :home
+                  "login"    :login
+                  "logout"   :logout
+                  "register" :register
+                  "settings" :settings
+                  "not-found" :not-found}])
 
 ;; -- History -----------------------------------------------------------------
 ;; we need to know the history of our routes so that we can navigate back and
