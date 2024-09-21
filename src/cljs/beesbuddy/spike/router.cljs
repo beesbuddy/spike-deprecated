@@ -16,8 +16,7 @@
         "logout"   :logout
         "register" :register
         "settings" :settings
-        "not-found" :not-found
-        }])
+        "not-found" :not-found}])
 
 ;; -- History -----------------------------------------------------------------
 ;; we need to know the history of our routes so that we can navigate back and

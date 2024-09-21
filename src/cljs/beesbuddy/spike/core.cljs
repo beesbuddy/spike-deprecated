@@ -1,9 +1,9 @@
 (ns beesbuddy.spike.core
   (:require
    [beesbuddy.spike.events]
+   [beesbuddy.spike.pages]
    [beesbuddy.spike.router :as router]
    [beesbuddy.spike.subs]
-   [beesbuddy.spike.pages]
    [re-frame.core :refer [dispatch-sync]]
    [reagent.dom :as d]))
 
