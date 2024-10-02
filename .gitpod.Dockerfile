@@ -17,18 +17,18 @@ RUN sudo apt-get update && \
 
 # Set environment variables for PostgreSQL
 ENV PGHOST=localhost
-ENV PGUSER=spike
-ENV PGPASSWORD=spike
+ENV PGUSER=gitpod
+ENV PGPASSWORD=gitpod
 ENV PGDATABASE=spike
 
 # Expose PostgreSQL port
 EXPOSE 5432
 
 # Set up PostgreSQL
-USER spike
+USER gitpod
 RUN sudo service postgresql start && \
-    psql -c "CREATE USER spike WITH PASSWORD 'spike';" && \
-    psql -c "CREATE DATABASE spike OWNER spike;"
+    psql -c "CREATE USER gitpod WITH PASSWORD 'gitpod';" && \
+    psql -c "CREATE DATABASE spike OWNER gitpod;"
 
 # Set up Clojure project dependencies
 COPY . /workspace
