@@ -19,6 +19,3 @@ RUN curl -O https://github.com/clojure/brew-install/releases/latest/download/lin
 COPY . /workspace
 WORKDIR /workspace
 RUN clojure -P
-
-# Set up entrypoint
-ENTRYPOINT ["clojure", "-M:repl"]

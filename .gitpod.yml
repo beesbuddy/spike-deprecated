@@ -8,9 +8,15 @@ vscode:
     - mechatroner.rainbow-csv
     - vscodevim.vim
 
-- name: database
-  port: 5432
-  onOpen: ignore
+tasks:
+  - name: create tables in db
+    init: sleep 5; './init-db.sh'
 
-- name: create tables in db
-  command: './init-db.sh'
+ports:
+  - name: back-end
+    port: 3000
+    onOpen: ignore
+    visibility: public
+  - name: database
+    port: 5432
+    onOpen: ignore
