@@ -23,7 +23,7 @@ ENV PGDATABASE=spike
 
 # Install Bash, Zsh, and Curlwrap
 RUN sudo apt-get update && \
-    sudo apt-get install -y bash zsh curlwrap
+    sudo apt-get install -y bash zsh rlwrap
 
 # Expose PostgreSQL port
 EXPOSE 5432
