@@ -30,7 +30,6 @@
                               (-> (config/system-config {:profile :dev})
                                   (ig/prep)))))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn test-prep!
   []
   (integrant.repl/set-prep! (fn []
@@ -42,6 +41,8 @@
 ;; the two profiles.
 (dev-prep!)
 
+#_(test-prep!)
+
 (repl/set-refresh-dirs "src/clj")
 
 (def refresh repl/refresh)
@@ -51,6 +52,7 @@
 (comment
   (go)
   (reset)
+  (halt)
   (def query-fn (:db.sql/query-fn state/system))
   (query-fn :store-user "test" "test")
   (query-fn :find-user-by-username {:username "test"})
@@ -58,6 +60,10 @@
   (migratus.core/create migrator "add-table")
   (migratus.core/rollback migrator)
   (migratus.core/migrate migrator)
+  ; ---------------------------------------------------------
+  ;; Prepare the REPL for development or testing
+  (test-prep!)
+  (dev-prep!)
   ;; ---------------------------------------------------------
   ;; Start Portal and capture all evaluation results
 
