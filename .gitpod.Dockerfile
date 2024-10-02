@@ -1,11 +1,15 @@
 # Base image
 FROM gitpod/workspace-full
 
-# Install Clojure CLI tools (version 1.12)
-RUN curl -O https://download.clojure.org/install/linux-install-1.12.0.839.sh && \
-    chmod +x linux-install-1.12.0.839.sh && \
-    sudo ./linux-install-1.12.0.839.sh && \
-    rm linux-install-1.12.0.839.sh
+# Install Java 17, rlwrap
+RUN sudo apt-get update && \
+    sudo apt-get install -y openjdk-17-jdk rlwrap
+
+# Install Clojure CLI tools (version latest)
+RUN curl -O https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh && \
+    chmod +x linux-install.sh && \
+    sudo ./linux-install.sh && \
+    rm linux-install.sh
 
 # Install PostgreSQL client
 RUN sudo apt-get update && \
