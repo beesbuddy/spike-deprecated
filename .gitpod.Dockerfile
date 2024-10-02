@@ -5,6 +5,7 @@ FROM gitpod/workspace-postgres
 RUN sudo apt-get update && \
     sudo apt-get install -y zsh openjdk-17-jdk rlwrap \
     curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
+    sudo apt-get update \
     sudo apt-get install -y nodejs && \
     sudo ln -s /usr/bin/nodejs /usr/bin/node
 
